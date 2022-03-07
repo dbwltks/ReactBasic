@@ -1,22 +1,38 @@
 const express = require("express");
 const app = express();
 const port = 5000; //상관없음
+const bodyParser = require("body-parser");
+
+const config = require("./config/key");
+const { User } = require("./models/User");
+
+//application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//application/josn
+app.use(bodyParser.json());
 
 const mongoose = require("mongoose");
 mongoose
-  .connect(
-    "mongodb+srv://jisan:te30980808!@reactbasic.t4hc7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    {
-      // useUnifiedTopology: true,
-      // useCreateIndex: true,
-      // useFindAndModify: false,
-    }
-  )
+  .connect(config.mongoURI, {
+    // useUnifiedTopology: true,
+    // useCreateIndex: true,
+    // useFindAndModify: false,
+  })
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 
 app.get("/", (req, res) => {
-  res.send("Hello World! 안녕하세요"); //출력
+  res.send("Hello World! 안녕하세요gg"); //출력
+});
+
+// 회원가입할때 필요한 정보들을 client에서 가져오면 그것들을 데이터베이스에 넣어준다.
+app.post("/register", (req, res) => {
+  const user = new User(req.body);
+  user.save((err, userInfo) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).json({ success: true });
+  }); // mongodb명령어
 });
 
 app.listen(port, () => {
