@@ -8,6 +8,11 @@ const userSchema = mongoose.Schema({
     type: String,
     maxlength: 50,
   },
+  id: {
+    type: String,
+    trim: true,
+    unique: 1,
+  },
   email: {
     type: String,
     trim: true,
@@ -17,7 +22,11 @@ const userSchema = mongoose.Schema({
     type: String,
     minlength: 5,
   },
-  lastname: {
+  organization: {
+    type: String,
+    maxlength: 50,
+  },
+  gender: {
     type: String,
     maxlength: 50,
   },
@@ -79,7 +88,7 @@ userSchema.statics.findByToken = function (token, cb) {
   jwt.verify(token, "secretToken", function (err, decoded) {
     // 유저아이디를 이용해서 유절르 찾고 클라이언트에서 가져온 토큰과 데이터베이스에 보관된 토큰이 일치하는지 확인
 
-    user.findOne({ "_id": decoded, "token": token }, function (err, user) {
+    user.findOne({ _id: decoded, token: token }, function (err, user) {
       if (err) return cb(err);
       cb(null, user);
     });

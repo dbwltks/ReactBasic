@@ -1,0 +1,30 @@
+{
+  "name": "reactbasic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm start\" \"npm start --prefix client\""
+  },
+  "author": "ji-san",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "concurrently": "^7.0.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.4",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.1.2",
+    "redux-promise": "^0.6.0",
+    "redux-thunk": "^2.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
